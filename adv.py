@@ -175,7 +175,7 @@ def traversal_test():
 if __name__ == '__main__':
     try:
         # main()
-        traversal_test
+        traversal_test()
     except KeyboardInterrupt:
         clear()
         print('topseed:', topseed)
