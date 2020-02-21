@@ -92,54 +92,53 @@ def traverse_graph(starting_room, seed, path=None, visited=None ):
     
     return path
 
-# def main():
-#     if len(argv) >= 2:
-#         if argv[1] == 'random':
-#             fresh_seed = new_seed()
-#             traversal_path = traverse_graph(world.starting_room)
-#             print(fresh_seed)
+def main():
+    if len(argv) >= 2:
+        if argv[1] == 'random':
+            fresh_seed = new_seed()
+            traversal_path = traverse_graph(world.starting_room)
+            print(fresh_seed)
         
-#         if argv[1] == 'mine':
-#             if len(argv) == 3:
-#                 global topseed
-#                 topseed = argv[2]
-#             path = traverse_graph(world.starting_room, topseed)
-#             count = 0
-#             lowest = len(path)
-#             best_seed = '0'
-#             try: 
-#                 while True:
-#                     path = []
-#                     fresh_seed = new_seed()
-#                     path = traverse_graph(world.starting_room, fresh_seed)
-#                     if len(path) < lowest:
-#                         lowest = len(path)
-#                         topseed = fresh_seed
-#                         clear()
-#                         print(f'{GREEN}Best Seed: {topseed}{END}')
-#                         print(f'{BLUE}Lowest: {lowest}{END}')
-#                         print(f'{RED}Count: {count}{END}')
-#                     if count % 1000 == 0:
-#                         clear()
-#                         print(f'{GREEN}Best Seed: {topseed}{END}')
-#                         print(f'{BLUE}Lowest: {lowest}{END}')
-#                         print(f'{RED}Count: {count}{END}')
-#                     count += 1
-#             except KeyboardInterrupt:
-#                 traversal_test()
-#                 exit()
+        if argv[1] == 'mine':
+            if len(argv) == 3:
+                global topseed
+                topseed = argv[2]
+            path = traverse_graph(world.starting_room, topseed)
+            count = 0
+            lowest = len(path)
+            best_seed = '0'
+            try: 
+                while True:
+                    path = []
+                    fresh_seed = new_seed()
+                    path = traverse_graph(world.starting_room, fresh_seed)
+                    if len(path) < lowest:
+                        lowest = len(path)
+                        topseed = fresh_seed
+                        clear()
+                        print(f'{GREEN}Best Seed: {topseed}{END}')
+                        print(f'{BLUE}Lowest: {lowest}{END}')
+                        print(f'{RED}Count: {count}{END}')
+                    if count % 1000 == 0:
+                        clear()
+                        print(f'{GREEN}Best Seed: {topseed}{END}')
+                        print(f'{BLUE}Lowest: {lowest}{END}')
+                        print(f'{RED}Count: {count}{END}')
+                    count += 1
+            except KeyboardInterrupt:
+                traversal_test(traverse_graph(world.starting_room, topseed))
+                exit()
 
-#         else:
-#             topseed = argv[1]
-#             traversal_path = traverse_graph(world.starting_room, topseed)
-#     else:
-#         traversal_path = traverse_graph(world.starting_room, topseed)
+        else:
+            topseed = argv[1]
+            traversal_path = traverse_graph(world.starting_room, topseed)
+    else:
+        traversal_path = traverse_graph(world.starting_room, topseed)
 
-#   traversal_test()
+    traversal_test(traversal_path)
 
-def traversal_test():
+def traversal_test(traversal_path):
     # TRAVERSAL TEST
-    traversal_path = traverse_graph(world.starting_room, topseed)
     world.print_rooms()
     visited_rooms = set()
     player.current_room = world.starting_room
@@ -151,7 +150,7 @@ def traversal_test():
 
     if len(visited_rooms) == len(room_graph):
         print(f"{GREEN}TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited{END}")
-        print(f'{BOLD}TOPSEED: {YELLOW}{topseed}{END}')
+        print(f'{BOLD}{YELLOW}{topseed}{END}')
     else:
         print("{RED}TESTS FAILED: INCOMPLETE TRAVERSAL{END}")
         print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
@@ -174,8 +173,7 @@ def traversal_test():
 
 if __name__ == '__main__':
     try:
-        # main()
-        traversal_test()
+        main()
     except KeyboardInterrupt:
         clear()
         print('topseed:', topseed)
