@@ -93,15 +93,15 @@ def traverse_graph(starting_room, seed, path=None, visited=None ):
     return path
 
 def main():
+    global topseed
     if len(argv) >= 2:
         if argv[1] == 'random':
-            fresh_seed = new_seed()
-            traversal_path = traverse_graph(world.starting_room)
-            print(fresh_seed)
+            topseed = new_seed()
+            traversal_path = traverse_graph(world.starting_room, topseed)
+            print(topseed)
         
-        if argv[1] == 'mine':
+        elif argv[1] == 'mine':
             if len(argv) == 3:
-                global topseed
                 topseed = argv[2]
             path = traverse_graph(world.starting_room, topseed)
             count = 0
@@ -130,6 +130,7 @@ def main():
                 exit()
 
         else:
+            print(argv[1])
             topseed = argv[1]
             traversal_path = traverse_graph(world.starting_room, topseed)
     else:
